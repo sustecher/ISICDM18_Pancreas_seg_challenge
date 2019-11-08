@@ -1,0 +1,77 @@
+#!/bin/sh
+
+# directory of project folder
+
+DATADIR="/media/Passport/Pancreas_ISICDM/data/"
+CODEDIR="/media/Passport/Pancreas_ISICDM/SEG_25D/"
+
+
+# which fold to experiment, set it to 0 / 1/ 2/ 3
+cur_fold=0
+
+# settings same as in fixed-point
+FOLDS=2
+LOW_RANGE=300
+HIGH_RANGE=1600
+
+ORGAN_NUMBER=1
+MARGIN=10
+# to build a uniform dimension for input of NN
+ZMAX=160
+YMAX=256
+XMAX=256
+# parameters of training
+epoch=30
+#init_lr=3e-4
+init_lr=3e-4
+# model to test
+
+
+# ---------------- programs -------------------
+# Gen list
+#python Gen_List.py ${DATADIR} ${cur_fold}
+
+# create data for training
+#python Slice2dataRandom.py ${DATADIR} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${MARGIN} ${ORGAN_NUMBER} ${LOW_RANGE} ${HIGH_RANGE}
+
+model_test_X=X_SC
+model_test_Y=Y_SC
+model_test_Z=Z_SC
+python unet.py ${DATADIR} ${cur_fold} X ${epoch} ${init_lr} ${model_test_X}
+python unet.py ${DATADIR} ${cur_fold} Y ${epoch} ${init_lr} ${model_test_Y}
+python unet.py ${DATADIR} ${cur_fold} Z ${epoch} ${init_lr} ${model_test_Z}
+python test_XYZ.py ${DATADIR} ${model_test_X} ${model_test_Y} ${model_test_Z} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${HIGH_RANGE} ${LOW_RANGE} ${MARGIN} ${vis}
+
+
+model_test_X=X_2
+model_test_Y=Y_2
+model_test_Z=Z_2
+#python unet.py ${DATADIR} ${cur_fold} X ${epoch} ${init_lr} ${model_test_X}
+#python unet.py ${DATADIR} ${cur_fold} Y ${epoch} ${init_lr} ${model_test_Y}
+#python unet.py ${DATADIR} ${cur_fold} Z ${epoch} ${init_lr} ${model_test_Z}
+#python test_XYZ.py ${DATADIR} ${model_test_X} ${model_test_Y} ${model_test_Z} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${HIGH_RANGE} ${LOW_RANGE} ${MARGIN} ${vis}
+
+model_test_X=X_3
+model_test_Y=Y_3
+model_test_Z=Z_3
+#python unet.py ${DATADIR} ${cur_fold} X ${epoch} ${init_lr} ${model_test_X}
+#python unet.py ${DATADIR} ${cur_fold} Y ${epoch} ${init_lr} ${model_test_Y}
+#python unet.py ${DATADIR} ${cur_fold} Z ${epoch} ${init_lr} ${model_test_Z}
+#python test_XYZ.py ${DATADIR} ${model_test_X} ${model_test_Y} ${model_test_Z} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${HIGH_RANGE} ${LOW_RANGE} ${MARGIN} ${vis}
+
+model_test_X=X_4
+model_test_Y=Y_4
+model_test_Z=Z_4
+#python unet.py ${DATADIR} ${cur_fold} X ${epoch} ${init_lr} ${model_test_X}
+#python unet.py ${DATADIR} ${cur_fold} Y ${epoch} ${init_lr} ${model_test_Y}
+#python unet.py ${DATADIR} ${cur_fold} Z ${epoch} ${init_lr} ${model_test_Z}
+#python test_XYZ.py ${DATADIR} ${model_test_X} ${model_test_Y} ${model_test_Z} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${HIGH_RANGE} ${LOW_RANGE} ${MARGIN} ${vis}
+
+model_test_X=X_5
+model_test_Y=Y_5
+model_test_Z=Z_5
+#python unet.py ${DATADIR} ${cur_fold} X ${epoch} ${init_lr} ${model_test_X}
+#python unet.py ${DATADIR} ${cur_fold} Y ${epoch} ${init_lr} ${model_test_Y}
+#python unet.py ${DATADIR} ${cur_fold} Z ${epoch} ${init_lr} ${model_test_Z}
+#python test_XYZ.py ${DATADIR} ${model_test_X} ${model_test_Y} ${model_test_Z} ${cur_fold} ${ZMAX} ${YMAX} ${XMAX} ${HIGH_RANGE} ${LOW_RANGE} ${MARGIN} ${vis}
+
